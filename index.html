@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<style>
+    html {
+        --system_font: system-ui, -apple-system;
+        font-size: 62.5%;
+        height: 100%;
+        font-family: var(--system_font);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: inherit;
+    }
+
+    img {
+        object-fit: cover;
+    }
+
+    img,
+    canvas {
+        display: block;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+        background: var(--primary);
+        font-size: 1.6rem;
+    }
+
+    body>main {
+        flex-grow: 1;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    h1 {
+        font-weight: 500;
+        font-size: max(32px, calc(1.9em + 0.6vw));
+    }
+
+    h2 {
+        font-weight: 500;
+        font-size: max(26px, calc(1.6em + 0.4vw));
+    }
+
+    h3 {
+        font-weight: 500;
+        font-size: max(22px, calc(1.3em + 0.3vw));
+    }
+
+    h4 {
+        font-weight: 500;
+        font-size: max(18px, calc(1.1em + 0.2vw));
+    }
+
+    h5 {
+        font-weight: 500;
+        font-size: 1em;
+    }
+
+    h6 {
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .rflex {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .rflexw {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .rflexr {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .rflexrw {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .cflex {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cflexw {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cflexr {
+        flex-direction: column-reverse;
+    }
+
+    .cflexrw {
+        flex-direction: column-reverse;
+    }
+
+    .jcs {
+        justify-content: start;
+    }
+
+    .jce {
+        justify-content: end;
+    }
+
+    .jcc {
+        justify-content: center;
+    }
+
+    .jcsb {
+        justify-content: space-between;
+    }
+
+    .jcsa {
+        justify-content: space-around;
+    }
+
+    .jcse {
+        justify-content: space-evenly;
+    }
+
+    .ais {
+        align-items: start;
+    }
+
+    .aie {
+        align-items: end;
+    }
+
+    .aic {
+        align-items: center;
+    }
+
+    .ass {
+        align-self: start;
+    }
+
+    .ase {
+        align-self: end;
+    }
+
+    .asc {
+        align-self: center;
+    }
+
+    .asst {
+        align-self: stretch;
+    }
+
+    .pos-abs {
+        position: absolute;
+    }
+
+    .pos-rel {
+        position: relative;
+    }
+
+    .pos-fix {
+        position: fixed;
+    }
+
+    .pos-sti {
+        position: sticky;
+    }
+
+    .btn {
+        position: relative;
+        font-size: 1.6rem;
+        line-height: 1.3;
+        text-transform: capitalize;
+        letter-spacing: 1px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 6px 24px;
+        border: 3px solid transparent;
+        background: none;
+        user-select: none;
+        outline: none;
+    }
+
+    :root {
+        --primary: rgba(233, 236, 239, 1);
+        --secondary: rgba(248, 249, 250, 1);
+        --prime_text: rgba(33, 37, 41, 1);
+        --sec_text: rgba(73, 80, 87, 1);
+        --panel_shadow: rgba(222, 226, 230, 1);
+    }
+
+    :root[data-theme="dark"] {
+        --primary: rgba(33, 37, 41, 1);
+        --secondary: rgba(52, 58, 64, 1);
+        --prime_text: #dee2e6;
+        --sec_text: #616a74;
+        --panel_shadow: rgba(33, 37, 41, 1);
+    }
+
+    body {
+        align-items: center;
+        justify-content: center;
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: min(350px, 100%);
+        box-shadow: 0 0 20px 0 var(--panel_shadow);
+        padding: 20px;
+        background: var(--secondary);
+        color: var(--prime_text);
+    }
+
+    main .header .brand {
+        font-size: 2rem;
+        font-weight: 600;
+    }
+
+    main .footer .btn_group {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+        padding-inline: 20px;
+    }
+
+    main .footer .btn_group .btn {
+        flex-grow: 1;
+        color: var(--prime_text);
+        border-radius: 10px;
+        border: 2px solid var(--sec_text);
+        transition: all 0.4s;
+    }
+
+    main .footer .btn_group .btn.full {
+        color: var(--secondary);
+        background: var(--sec_text);
+    }
+
+    main .footer .btn_group .btn.full:hover {
+        color: var(--primary);
+        background: var(--prime_text);
+    }
+
+    main .footer .btn_group .btn:not(:first-child) {
+        margin-left: 6px;
+    }
+
+    main .footer .btn_group .btn:hover {
+        color: var(--secondary);
+        background: var(--sec_text);
+    }
+
+    main .footer h6 {
+        text-align: center;
+    }
+
+    main .footer h6 .brand {
+        font-size: 1.8rem;
+    }
+
+    main .container {
+        flex-grow: 1;
+        padding: 40px 20px;
+    }
+
+    main .container #intro {
+        font-size: 3rem;
+        text-align: center;
+        margin-block: auto;
+    }
+
+    main .container #intro.hide {
+        display: none;
+    }
+
+    main .container #question {
+        padding-block: 30px;
+    }
+
+    main .container #answers .answer {
+        font-weight: 600;
+        padding: 10px 20px;
+        background: var(--primary);
+        margin-block: 8px;
+        border-radius: 7px;
+        transition: all 0.4s;
+        outline: 3px solid rgba(45, 143, 0, 0.01);
+    }
+
+    main .container #answers .answer:hover {
+        color: var(--primary);
+        background: var(--sec_text);
+        cursor: pointer;
+    }
+
+    main .container #answers .answer.active {
+        color: var(--primary);
+        background: var(--sec_text);
+    }
+
+    main .container #answers .answer.wrong {
+        background: rgba(231, 2, 2, 1);
+        outline: 3px solid rgba(231, 2, 2, 0.5);
+    }
+
+    main .container #answers .answer.right {
+        color: var(--primary);
+        background: rgba(45, 143, 0, 1);
+        outline: 3px solid rgba(45, 143, 0, 0.5);
+    }
+</style>
+</head>
+<body>
+    <main>
+        <div class="header">
+            <a class="brand" href="">Quiz Web</a>
+        </div>
+        <div class="container">
+            <h1 id="intro">
+                Click start to start Quiz
+            </h1>
+            <div id="question">
+            </div>
+            <div id="answers">
+            </div>
+        </div>
+        <div class="footer">
+            <div class="btn_group">
+                <button id="restart" class="btn">Re-start</button>
+                <button id="start" class="btn full">Start</button>
+            </div>
+            <h6><a class="brand" href="">About </a>Quiz Web</h6>
+        </div>
+    </main>
+    <script src="./js/grapple.js"></script>
+    <script>
+        let score = 0;
+            let qn = 0;
+            const restart = $("#restart");
+            const start = $("#start");
+            const questions = [
+                {
+                    question: "What is the capital of France?",
+                    answers: ["Paris", "Madrid", "Rome"],
+                    correctAnswer: "Paris",
+                },
+                {
+                    question: "What is the largest planet in our solar system?",
+                    answers: ["Jupiter", "Saturn", "Neptune"],
+                    correctAnswer: "Jupiter",
+                },
+                {
+                    question: "What is the smallest country in the world?",
+                    answers: ["Monaco", "Vatican City", "San Marino"],
+                    correctAnswer: "Vatican City",
+                },
+                {
+                    question: "Where is MMDU located in India?",
+                    answers: ["Chandigah", "Delhi", "Mullana"],
+                    correctAnswer: "Mullana",
+                },
+                {
+                    question: "What is the full meaning of BCA as a course in MMDU?",
+                    answers: [
+                        "Bachelor of Computer Applications",
+                        "Bachelor of Cardiac Arrest",
+                        "Bachelor of Computer Science",
+                    ],
+                    correctAnswer: "Bachelor of Computer Applications",
+                },
+                {
+                    question: "Who is the head of the BCA department?",
+                    answers: ["Vivek Bhatnagar", "Gautam Kumar", "Dr Rattan"],
+                    correctAnswer: "Vivek Bhatnagar",
+                },
+            ];
+
+            restart.onclick = startQuiz;
+            start.onclick = startQuiz;
+
+            function startQuiz() {
+                score = 0;
+                qn = 0;
+                $("#intro").addClass("hide");
+                show_question();
+            }
+            function show_question() {
+                $("#question").innerText = questions[qn]["question"];
+                $("#answers").innerHTML = "";
+                questions[qn]["answers"].forEach((element) => {
+                    $("#answers").append(
+                        `<div class="answer" onclick="answer(this)">${element}</div>`
+                    );
+                });
+            }
+            function answer(node) {
+                let answer = node.innerText;
+                node.addClass("active");
+                if (answer == questions[qn]["correctAnswer"]) {
+                    score++;
+                    node.addClass("right");
+                } else {
+                    node.addClass("wrong");
+                }
+                qn++;
+                setTimeout(() => {
+                    if (qn == questions.length) {
+                        $("#question").innerText = "";
+                        $("#answers").innerHTML = "";
+                        $("#intro").innerText = score + "/" + qn + "\nCorrect";
+                        $("#intro").removeClass("hide");
+                    } else {
+                        show_question();
+                    }
+                }, 1000);
+            }
+    </script>
+</body>
+
+</html>
